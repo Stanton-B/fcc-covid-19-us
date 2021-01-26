@@ -1,5 +1,4 @@
 import format from './format';
-// import moment from 'moment';
 
 function usStats(data) {
 	const [usStatRaw] = data;

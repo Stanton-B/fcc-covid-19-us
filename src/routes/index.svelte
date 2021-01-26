@@ -6,7 +6,9 @@
 			const usStats = await requests.usStats();
 
 			return { usStats };
-		} catch (e) {}
+		} catch (e) {
+			this.error(500, e);
+		}
 	}
 </script>
 
@@ -17,7 +19,7 @@
 
 	export let usStats;
 
-	console.log(usStats, "usStats");
+	/* console.log("usStats", usStats); */
 </script>
 
 <svelte:head>
@@ -30,7 +32,7 @@
 	</div>
 </div>
 
-<CovidStat />
+<CovidStat {...usStats} />
 <CovidChart />
 
 <TableContainer />
