@@ -4,9 +4,10 @@
 	export async function preload() {
 		try {
 			const usStats = await requests.usStats();
-
-			return { usStats };
+			const historic = await requests.historicUS();
+			return { usStats, historic };
 		} catch (e) {
+			console.log(e);
 			this.error(500, e);
 		}
 	}
@@ -18,8 +19,10 @@
 	import TableContainer from "../components/TableContainer.svelte";
 
 	export let usStats;
+	export let historic;
 
-	/* console.log("usStats", usStats); */
+	console.log("usStats: ", usStats);
+	console.log("historic: ", historic);
 </script>
 
 <svelte:head>
