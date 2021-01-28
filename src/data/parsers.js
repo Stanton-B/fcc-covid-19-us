@@ -9,19 +9,15 @@ export default {
 
 function usStats(data) {
   const [usStatRaw] = data;
-
   return parseStats(usStatRaw);
 }
 
 function stateStats(state, data) {
   const stateRawData = data.find(d => d.state === state);
-
   return parseStats(stateRawData);
 }
 
 function historicUS(historicData) {
-  // not sure why this go-between is necessary...maybe bc the chart parsing
-  // requires more code?
   return parseHistoric(historicData);
 }
 
