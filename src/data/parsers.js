@@ -5,6 +5,7 @@ export default {
   usStats,
   stateStats,
   historicUS,
+  historicState,
 }
 
 function usStats(data) {
@@ -19,6 +20,12 @@ function stateStats(state, data) {
 
 function historicUS(historicData) {
   return parseHistoric(historicData);
+}
+
+function historicState(historicData) {
+  // this filter is no longer necessary because it is handled in the url
+  // const stateHistoric = historicData.filter(d => d.state === state);
+  return parseHistoric(historicData)
 }
 
 function parseHistoric(historicData) {
@@ -49,7 +56,7 @@ function parseHistoric(historicData) {
       color: 'rgb(255, 99, 132)'
     }
   ].reduce((prev, next) => {
-    if (historicData.filter(d => d[next.key] !== null).length > 4) {
+    if (historicData.filter(d => d[next.key]).length > 4) {
       prev.push(parseChart(historicData, next.key, next.label, next.color));
     }
 
