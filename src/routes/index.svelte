@@ -11,23 +11,20 @@
 		/* Page components can define a preload function that runs before the
 		 * component is created. The values it returns are passed as props to the
 		 * page. */
-
 		/* Preload functions are called when a page is loaded and are typically */
 		/* used to load data that the page depends on - hence its name. This */
 		/* avoids the user seeing the page update as it loads, as is typically the */
 		/* case with client-side loading. */
-
 		/* Note that preload will run both on the server side and on the client
 		 * side. Therefore, it may not reference any APIs only present in the
 		 * browser. */
-
 		/* https://sapper.svelte.dev/docs#Preloading */
 		try {
 			const usStats = await requests.usStats();
 			const historic = await requests.historicUS();
-			return { usStats, historic };
+			const statesData = await requests.statesData();
+			return { usStats, historic, statesData };
 		} catch (e) {
-			/* console.log(e); */
 			this.error(500, e);
 		}
 	}
@@ -40,9 +37,7 @@
 
 	export let usStats;
 	export let historic;
-
-	console.log("usStats: ", usStats);
-	console.log("historic: ", historic);
+	export let statesData;
 </script>
 
 <svelte:head>
@@ -58,4 +53,4 @@
 <CovidStat {...usStats} />
 <CovidChart historicData={historic} title="US Covid-19" />
 
-<TableContainer />
+<TableContainer data={statesData} />

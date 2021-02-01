@@ -1,11 +1,13 @@
 import format from './format';
 import moment from 'moment';
+import stateNames from '../data/stateNames.js'
 
 export default {
   usStats,
   stateStats,
   historicUS,
   historicState,
+  stateTable,
 }
 
 function usStats(data) {
@@ -26,6 +28,21 @@ function historicState(historicData) {
   // this filter is no longer necessary because it is handled in the url
   // const stateHistoric = historicData.filter(d => d.state === state);
   return parseHistoric(historicData)
+}
+
+function stateTable(stateData) {
+  // for each state, return a list of state abbreviation, full state name,
+  // cases, deaths, tested
+  return stateData.map(data => {
+    const {name} = stateNames.find(d => d.abbreviation === data.state);
+    return {
+      cases: format.number(data.positive),
+      deaths: format.number(data.death),
+      tested: format.number(data.totalTestResults),
+      state: format.number(data.state),
+      fullStateName: name,
+    };
+  });
 }
 
 function parseHistoric(historicData) {
@@ -102,3 +119,4 @@ function parseStats(rawStats) {
     //   }).format(new Date(rawStats.lastModified)),
   };
 }
+

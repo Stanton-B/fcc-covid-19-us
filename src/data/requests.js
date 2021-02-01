@@ -6,6 +6,7 @@ export default {
 	stateStats,
 	historicUS,
 	historicState,
+	statesData,
 };
 
 async function usStats() {
@@ -32,9 +33,13 @@ async function historicUS() {
 // 	return parsers.historicState(state, response.data);
 // }
 async function historicState(state) {
-	// all daily national covid data by state since beginning. Massive file...
+	// all daily national covid data for the state (coded into the url)
 	const response = await axios.get(`https://api.covidtracking.com/v1/states/${state}/daily.json`);
 	return parsers.historicState(response.data);
 }
 
-
+async function statesData() {
+	// for the state table on the main page
+	const response = await axios.get('https://api.covidtracking.com/v1/states/current.json');
+	return parsers.stateTable(response.data);
+}

@@ -1,3 +1,6 @@
+export default {
+	number,
+}
 function number(num) {
 	if (num === null || num === undefined) {
 		return 'unknown';
@@ -6,6 +9,3 @@ function number(num) {
 	return num.toLocaleString();
 }
 
-export default {
-	number,
-}
